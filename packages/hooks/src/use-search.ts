@@ -9,7 +9,7 @@ import {lyraContext} from './context';
 
 export function useSearch(parameters: SearchParams<PropertiesSchema>) {
   const ctx = useContext(lyraContext);
-  const {db, ready} = ctx;
+  const {db, isIndexed} = ctx;
   const [done, setDone] = useState<boolean>(false);
   const [results, setResults] = useState<SearchResult<PropertiesSchema>>();
 
@@ -17,7 +17,7 @@ export function useSearch(parameters: SearchParams<PropertiesSchema>) {
     setDone(false);
     setResults(undefined);
 
-    if (!ready) {
+    if (!isIndexed) {
       return;
     }
 
@@ -27,7 +27,7 @@ export function useSearch(parameters: SearchParams<PropertiesSchema>) {
     }
 
     void doSearch();
-  }, [ready, parameters]);
+  }, [isIndexed, parameters]);
 
   return {done, results};
 }

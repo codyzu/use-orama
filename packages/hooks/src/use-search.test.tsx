@@ -8,10 +8,11 @@ import {
 } from '@testing-library/react';
 // Import type from '@testing-library/react/dist/@testing-li';
 import {describe, it, expect} from 'vitest';
-import {useMemo, type ReactNode} from 'react';
+import {useEffect, useMemo, type ReactNode} from 'react';
 import {type PropertiesSchema} from '@lyrasearch/lyra';
 import {useSearch} from './use-search';
-import {Provider} from './provider';
+import {Provider} from './Provider';
+import useSetSearchableData from './use-set-searchable-data';
 // Import {createLyra} from './create-index';
 
 // Type Options = RenderOptions<
@@ -47,7 +48,7 @@ import {Provider} from './provider';
 // };
 
 describe('useSearch', () => {
-  it('performs a search', async () => {
+  it.only('performs a search', async () => {
     const data = [{value: 'a'}, {value: 'b'}];
     const schema: PropertiesSchema = {value: 'string'};
 
@@ -55,6 +56,12 @@ describe('useSearch', () => {
     const {result, rerender} = renderHook(
       (...args) => {
         console.log('args', args);
+        const setData = useSetSearchableData();
+
+        useEffect(() => {
+          setData(data);
+        });
+
         return useSearch(searchParameters);
       },
       {
