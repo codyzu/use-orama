@@ -5,14 +5,16 @@ import {
   renderHook,
   type RenderOptions,
   waitFor,
+  type RenderHookOptions,
 } from '@testing-library/react';
 // Import type from '@testing-library/react/dist/@testing-li';
-import {describe, it, expect} from 'vitest';
+import {describe, it, expect, beforeEach} from 'vitest';
 import {useEffect, useMemo, type ReactNode} from 'react';
-import {type PropertiesSchema} from '@lyrasearch/lyra';
+import {type PropertiesSchema, type SearchResult} from '@lyrasearch/lyra';
 import {useSearch} from './use-search';
 import {Provider} from './Provider';
 import useSetSearchableData from './use-set-searchable-data';
+import useSearchableData from './use-searchable-data';
 // Import {createLyra} from './create-index';
 
 // Type Options = RenderOptions<
@@ -47,86 +49,113 @@ import useSetSearchableData from './use-set-searchable-data';
 //   );
 // };
 
+let data: any[] | undefined;
+let propertiesSchema: PropertiesSchema | undefined;
+
+beforeEach(() => {
+  data = undefined;
+  propertiesSchema = {value: 'string'};
+});
+
+function customRender(
+  hook: (initialProps: unknown) => {
+    done: boolean;
+    results: SearchResult<PropertiesSchema> | undefined;
+  },
+) {
+  return renderHook(hook, {
+    wrapper: (props: any) => <Provider schema={propertiesSchema} {...props} />,
+  });
+}
+
 describe('useSearch', () => {
-  it.only('performs a search', async () => {
-    const data = [{value: 'a'}, {value: 'b'}];
-    const schema: PropertiesSchema = {value: 'string'};
+  it('can set data with useSetSearchableData', async () => {
+    data = [{value: 'a'}, {value: 'b'}];
 
     const searchParameters = {term: 'a'};
-    const {result, rerender} = renderHook(
-      (...args) => {
-        console.log('args', args);
-        const setData = useSetSearchableData();
+    const {result} = customRender(() => {
+      const setData = useSetSearchableData();
 
-        useEffect(() => {
-          setData(data);
-        });
+      useEffect(() => {
+        setData(data!);
+      });
 
-        return useSearch(searchParameters);
-      },
-      {
-        wrapper: (props: any) => (
-          <Provider data={data} schema={schema} {...props} />
-        ),
-      },
-    );
-
-    rerender();
+      return useSearch(searchParameters);
+    });
 
     await waitFor(() => {
       expect(result.current.done).toBe(true);
       expect(result.current.results?.hits).toHaveLength(1);
       expect(result.current.results?.hits.map((hit) => hit.document)).toContain(
-        data[0],
+        data![0],
       );
     });
   });
 
-  it('performs multiple searches', async () => {
-    const data = [{value: 'a'}, {value: 'b'}];
-    const schema: PropertiesSchema = {value: 'string'};
+  it('can set data with useSearchableData', async () => {
+    data = [{value: 'a'}, {value: 'b'}];
 
-    let searchParameters = {term: 'a'};
-    const {result, rerender} = renderHook(() => useSearch(searchParameters), {
-      wrapper: (props: any) => (
-        <Provider data={data} schema={schema} {...props} />
-      ),
+    const searchParameters = {term: 'a'};
+    const {result} = customRender(() => {
+      useSearchableData(data!);
+      return useSearch(searchParameters);
     });
 
     await waitFor(() => {
       expect(result.current.done).toBe(true);
+      expect(result.current.results?.hits).toHaveLength(1);
+      expect(result.current.results?.hits.map((hit) => hit.document)).toContain(
+        data![0],
+      );
+    });
+  });
+
+  it('can change the search parameter', async () => {
+    data = [{value: 'a'}, {value: 'b'}];
+
+    let searchParameters = {term: 'a'};
+    const {result, rerender} = customRender(() => {
+      useSearchableData(data!);
+      return useSearch(searchParameters);
     });
 
+    await waitFor(() => {
+      expect(result.current.done).toBe(true);
+      expect(result.current.results?.hits).toHaveLength(1);
+      expect(result.current.results?.hits.map((hit) => hit.document)).toContain(
+        data?.[0],
+      );
+    });
+
+    // Update the search term and rerender
     searchParameters = {term: 'b'};
-
     rerender();
 
     await waitFor(() => {
       expect(result.current.done).toBe(true);
       expect(result.current.results?.hits).toHaveLength(1);
       expect(result.current.results?.hits.map((hit) => hit.document)).toContain(
-        data[1],
+        data![1],
       );
     });
   });
 
-  it('can change data', async () => {
-    let data = [{value: 'a'}, {value: 'b'}];
-    const schema: PropertiesSchema = {value: 'string'};
+  it('can change the searchable data', async () => {
+    data = [{value: 'a'}, {value: 'b'}];
 
-    let searchParameters = {term: 'a'};
-    const {result, rerender} = renderHook(() => useSearch(searchParameters), {
-      wrapper: (props: any) => (
-        <Provider data={data} schema={schema} {...props} />
-      ),
+    let searchParameters = {term: 'c'};
+    const {result, rerender} = customRender(() => {
+      useSearchableData(data!);
+      return useSearch(searchParameters);
     });
 
     await waitFor(() => {
       expect(result.current.done).toBe(true);
+      expect(result.current.results?.hits).toHaveLength(0);
     });
 
+    // Change the data and the search term
     data = [{value: 'c'}, data[1]];
-
     searchParameters = {term: 'c'};
 
     rerender();
@@ -135,7 +164,7 @@ describe('useSearch', () => {
       expect(result.current.done).toBe(true);
       expect(result.current.results?.hits).toHaveLength(1);
       expect(result.current.results?.hits.map((hit) => hit.document)).toContain(
-        data[0],
+        data![0],
       );
     });
   });
