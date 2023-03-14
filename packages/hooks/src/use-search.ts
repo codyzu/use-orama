@@ -5,7 +5,7 @@ import {
   type SearchParams,
 } from '@lyrasearch/lyra';
 import {useContext, useEffect, useState} from 'react';
-import {lyraContext} from './context';
+import {lyraContext} from './context.js';
 
 export function useSearch(parameters: SearchParams<PropertiesSchema>) {
   const ctx = useContext(lyraContext);
@@ -18,6 +18,10 @@ export function useSearch(parameters: SearchParams<PropertiesSchema>) {
     setResults(undefined);
 
     if (!isIndexed) {
+      return;
+    }
+
+    if (!parameters) {
       return;
     }
 

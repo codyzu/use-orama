@@ -4,8 +4,8 @@ import {
   create,
   insertBatch,
 } from '@lyrasearch/lyra';
-import {type ReactNode, useState, useEffect, useMemo} from 'react';
-import {lyraContext} from './context';
+import {type ReactNode, useState, useEffect, useMemo, useCallback} from 'react';
+import {lyraContext} from './context.js';
 
 export function Provider({
   children,
@@ -27,7 +27,10 @@ export function Provider({
       setDb(undefined);
       setIsInitialized(false);
 
-      console.log('schema', schema, 'options', options, 'data', data);
+      // Don't create the Lyra instance if there is no schema (Lyra will throw)
+      if (schema === undefined) {
+        return;
+      }
 
       const db = await create({schema, ...options});
       setIsInitialized(true);
@@ -64,5 +67,3 @@ export function Provider({
     </lyraContext.Provider>
   );
 }
-
-// Export const Provider = lyraContext.Provider;

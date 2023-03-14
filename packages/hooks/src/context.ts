@@ -1,7 +1,14 @@
 import {createContext} from 'react';
-import {type LyraWrapper} from './lyra-wrapper';
+import {type Lyra, type PropertiesSchema} from '@lyrasearch/lyra';
 
-export const lyraContext = createContext<LyraWrapper>({
+export type LyraContext = {
+  isInitialized: boolean;
+  isIndexed: boolean;
+  db?: Lyra<PropertiesSchema>;
+  setData: (data: any[]) => void;
+};
+
+export const lyraContext = createContext<LyraContext>({
   isInitialized: false,
   isIndexed: false,
   setData: () => undefined,

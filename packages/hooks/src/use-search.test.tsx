@@ -1,53 +1,12 @@
 // eslint-disable-line unicorn/filename-case
-import {
-  render,
-  screen,
-  renderHook,
-  type RenderOptions,
-  waitFor,
-  type RenderHookOptions,
-} from '@testing-library/react';
-// Import type from '@testing-library/react/dist/@testing-li';
+import {renderHook, waitFor} from '@testing-library/react';
 import {describe, it, expect, beforeEach} from 'vitest';
-import {useEffect, useMemo, type ReactNode} from 'react';
+import {useEffect} from 'react';
 import {type PropertiesSchema, type SearchResult} from '@lyrasearch/lyra';
 import {useSearch} from './use-search';
 import {Provider} from './Provider';
 import useSetSearchableData from './use-set-searchable-data';
 import useSearchableData from './use-searchable-data';
-// Import {createLyra} from './create-index';
-
-// Type Options = RenderOptions<
-//   typeof import('@testing-library/dom/types/queries'),
-//   HTMLElement,
-//   HTMLElement
-// >;
-// type Wrapper = React.JSXElementConstructor<{
-//   children: React.ReactElement;
-// }>;
-// const customRender = (
-//   ui: JSX.Element,
-//   {providerProps, ...renderOptions}: any,
-// ) => {
-//   return render(<Provider {...providerProps}>{ui}</Provider>, renderOptions);
-// };
-
-// const wrapper = ({
-//   children,
-//   data,
-//   schema,
-// }: {
-//   children: ReactNode;
-//   data: any;
-//   schema: PropertiesSchema;
-// }) => {
-//   console.log('The data is', data);
-//   return (
-//     <Provider data={!data} schema={schema}>
-//       {children}
-//     </Provider>
-//   );
-// };
 
 let data: any[] | undefined;
 let propertiesSchema: PropertiesSchema | undefined;
@@ -69,10 +28,10 @@ function customRender(
 }
 
 describe('useSearch', () => {
-  it('can set data with useSetSearchableData', async () => {
+  it('can set data with callback returned from useSetSearchableData', async () => {
     data = [{value: 'a'}, {value: 'b'}];
-
     const searchParameters = {term: 'a'};
+
     const {result} = customRender(() => {
       const setData = useSetSearchableData();
 
@@ -92,10 +51,10 @@ describe('useSearch', () => {
     });
   });
 
-  it('can set data with useSearchableData', async () => {
+  it('can set data directly with useSearchableData', async () => {
     data = [{value: 'a'}, {value: 'b'}];
-
     const searchParameters = {term: 'a'};
+
     const {result} = customRender(() => {
       useSearchableData(data!);
       return useSearch(searchParameters);
@@ -112,8 +71,8 @@ describe('useSearch', () => {
 
   it('can change the search parameter', async () => {
     data = [{value: 'a'}, {value: 'b'}];
-
     let searchParameters = {term: 'a'};
+
     const {result, rerender} = customRender(() => {
       useSearchableData(data!);
       return useSearch(searchParameters);
@@ -142,8 +101,8 @@ describe('useSearch', () => {
 
   it('can change the searchable data', async () => {
     data = [{value: 'a'}, {value: 'b'}];
-
     let searchParameters = {term: 'c'};
+
     const {result, rerender} = customRender(() => {
       useSearchableData(data!);
       return useSearch(searchParameters);
@@ -166,6 +125,112 @@ describe('useSearch', () => {
       expect(result.current.results?.hits.map((hit) => hit.document)).toContain(
         data![0],
       );
+    });
+  });
+
+  it('is never done when schema is not set', async () => {
+    data = [{value: 'a'}, {value: 'b'}];
+    propertiesSchema = undefined;
+    let searchParameters = {term: 'a'};
+
+    const {result, rerender} = customRender(() => {
+      useSearchableData(data!);
+      return useSearch(searchParameters);
+    });
+
+    await waitFor(() => {
+      expect(result.current.done).not.toBe(true);
+    });
+
+    searchParameters = {term: 'b'};
+    rerender();
+
+    await waitFor(() => {
+      expect(result.current.done).not.toBe(true);
+    });
+  });
+
+  it('is never done when data is not set', async () => {
+    data = undefined;
+    let searchParameters = {term: 'a'};
+
+    const {result, rerender} = customRender(() => {
+      useSearchableData(data!);
+      return useSearch(searchParameters);
+    });
+
+    await waitFor(() => {
+      expect(result.current.done).not.toBe(true);
+    });
+
+    searchParameters = {term: 'b'};
+    rerender();
+
+    await waitFor(() => {
+      expect(result.current.done).not.toBe(true);
+    });
+  });
+
+  it('sets done to false after clearing data', async () => {
+    data = [{value: 'a'}, {value: 'b'}];
+    const searchParameters = {term: 'a'};
+
+    const {result, rerender} = customRender(() => {
+      useSearchableData(data!);
+      return useSearch(searchParameters);
+    });
+
+    await waitFor(() => {
+      expect(result.current.done).toBe(true);
+    });
+
+    data = undefined;
+    rerender();
+
+    await waitFor(() => {
+      expect(result.current.done).not.toBe(true);
+    });
+  });
+
+  it('sets done to false after clearing schema', async () => {
+    data = [{value: 'a'}, {value: 'b'}];
+    const searchParameters = {term: 'a'};
+
+    const {result, rerender} = customRender(() => {
+      useSearchableData(data!);
+      return useSearch(searchParameters);
+    });
+
+    await waitFor(() => {
+      expect(result.current.done).toBe(true);
+    });
+
+    propertiesSchema = undefined;
+    rerender();
+
+    await waitFor(() => {
+      expect(result.current.done).not.toBe(true);
+    });
+  });
+
+  it('sets done to false after clearing search parameters', async () => {
+    data = [{value: 'a'}, {value: 'b'}];
+    let searchParameters: any = {term: 'a'};
+
+    const {result, rerender} = customRender(() => {
+      useSearchableData(data!);
+      return useSearch(searchParameters);
+    });
+
+    await waitFor(() => {
+      expect(result.current.done).toBe(true);
+    });
+
+    searchParameters = undefined;
+    rerender();
+
+    await waitFor(() => {
+      expect(result.current.done).not.toBe(true);
     });
   });
 });
