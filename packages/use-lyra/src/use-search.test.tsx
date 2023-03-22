@@ -4,7 +4,7 @@ import {describe, it, expect, beforeEach} from 'vitest';
 import {useEffect} from 'react';
 import {type PropertiesSchema, type SearchResult} from '@lyrasearch/lyra';
 import {useSearch} from './use-search';
-import {Provider} from './Provider';
+import {LyraProvider} from './Provider';
 import useSetSearchableData from './use-set-searchable-data';
 import useSearchableData from './use-searchable-data';
 
@@ -23,7 +23,7 @@ function customRender(
   },
 ) {
   return renderHook(hook, {
-    wrapper: (props: any) => <Provider schema={propertiesSchema} {...props} />,
+    wrapper: (props: any) => <LyraProvider schema={propertiesSchema} {...props} />,
   });
 }
 

@@ -7,7 +7,7 @@ import {
 import {type ReactNode, useState, useEffect, useMemo, useCallback} from 'react';
 import {lyraContext} from './context.js';
 
-export function Provider({
+export function LyraProvider({
   children,
   schema,
   options,

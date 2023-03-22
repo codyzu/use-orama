@@ -1,5 +1,5 @@
 {
-  "name": "uselyra",
+  "name": "use-lyra",
   "version": "1.0.0",
   "description": "",
   "main": "lib",
@@ -30,6 +30,7 @@
     "vitest": "^0.29.2"
   },
   "peerDependencies": {
+    "@lyrasearch/lyra": ">=0.4.11",
     "react": ">=18.2.0"
   },
   "type": "module"
