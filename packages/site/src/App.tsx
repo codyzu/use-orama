@@ -20,13 +20,13 @@ function App() {
       const result = await fetch('https://dummyjson.com/products?limit=100');
       const data = (await result.json()) as Response;
 
-      console.log('raw data', data);
-      const fixedData = data.products.map((doc) => ({
+      // Orama will explode if ids are not strings
+      const dataWithStringIds = data.products.map((doc) => ({
         ...doc,
         id: doc.id.toString(),
       }));
-      console.log('data', fixedData);
-      setPosts(fixedData);
+
+      setPosts(dataWithStringIds);
     }
 
     void getData();
@@ -43,7 +43,14 @@ function App() {
 
   return (
     <>
-      <div className="search-bar">
+      <h2>useOrama hooks exerciser</h2>
+      <form
+        className="search-bar"
+        onSubmit={(event) => {
+          event.preventDefault();
+          setSearchParameters({term: searchTerm});
+        }}
+      >
         <input
           type="text"
           placeholder="Search products..."
@@ -52,29 +59,27 @@ function App() {
             setSearchTerm(event.target.value);
           }}
         />
-        <button
-          type="button"
-          onClick={() => {
-            setSearchParameters({term: searchTerm});
-          }}
-        >
-          Search
-        </button>
-      </div>
-      <div
-        style={{
-          display: 'grid',
-          gridTemplateColumns: 'auto 1fr',
-          textAlign: 'left',
-        }}
-      >
-        {results?.hits?.map((hit) => (
-          <div key={hit.id} style={{display: 'contents'}}>
-            <div style={{}}>{hit.document.title as string}</div>
-            <div style={{}}>{hit.document.description as string}</div>
-          </div>
-        ))}
-      </div>
+        <button type="submit">Search</button>
+      </form>
+      <h3>
+        {`${results?.count ?? '0'} results in ${results?.elapsed ?? '0 μs'}`}
+      </h3>
+      <table>
+        <thead>
+          <tr>
+            <th>title</th>
+            <th>description</th>
+          </tr>
+        </thead>
+        <tbody>
+          {results?.hits?.map((hit) => (
+            <tr key={hit.id}>
+              <td>{hit.document.title as string}</td>
+              <td>{hit.document.description as string}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </>
   );
 }

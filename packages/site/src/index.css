@@ -26,8 +26,8 @@ a:hover {
 
 body {
   margin: 0;
-  display: flex;
-  place-items: center;
+  /* display: flex; */
+  /* place-items: center; */
   min-width: 320px;
   min-height: 100vh;
 }
@@ -68,8 +68,29 @@ input {
   font-size: 1em;
   font-weight: 500;
   font-family: inherit;
-  /* background-color: #1a1a1a; */
+  background-color: #1a1a1a;
   transition: border-color 0.25s;
+}
+
+th {
+  text-align: left;
+  border-bottom: 2px solid black;
+  text-transform: uppercase;
+  padding-left: 3rem;
+  padding-right: 3rem;
+}
+
+td {
+  border-bottom: 1px solid black;
+  border-top: 1px solid black;
+}
+
+tr:nth-child(even) {
+  background-color: #1a1a1a;
+}
+
+table {
+  border-collapse: collapse;
 }
 
 @media (prefers-color-scheme: light) {
@@ -83,7 +104,8 @@ input {
   }
 
   button,
-  input {
+  input,
+  tr:nth-child(even) {
     background-color: #f9f9f9;
   }
 }

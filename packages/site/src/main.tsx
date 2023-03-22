@@ -12,7 +12,17 @@ const schema: PropertiesSchema = {
 
 ReactDOM.createRoot(document.querySelector('#root')!).render(
   <React.StrictMode>
-    <LyraProvider schema={schema}>
+    <LyraProvider
+      schema={schema}
+      options={{
+        components: {
+          elapsed: {
+            // Make the elapsed time human readable
+            format: 'human',
+          },
+        },
+      }}
+    >
       <App />
     </LyraProvider>
   </React.StrictMode>,
