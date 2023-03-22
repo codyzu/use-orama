@@ -4,10 +4,10 @@ import {
   create,
   insertBatch,
 } from '@lyrasearch/lyra';
-import {type ReactNode, useState, useEffect, useMemo, useCallback} from 'react';
-import {lyraContext} from './context.js';
+import {type ReactNode, useState, useEffect} from 'react';
+import {oramaContext} from './context.js';
 
-export function LyraProvider({
+export function OramaProvider({
   children,
   schema,
   options,
@@ -22,12 +22,12 @@ export function LyraProvider({
   const [data, setData] = useState<any[]>();
 
   useEffect(() => {
-    async function initLyra() {
+    async function initOrama() {
       setIsIndexed(false);
       setDb(undefined);
       setIsInitialized(false);
 
-      // Don't create the Lyra instance if there is no schema (Lyra will throw)
+      // Don't create the Orama instance if there is no schema (Orama will throw)
       if (schema === undefined) {
         return;
       }
@@ -37,7 +37,7 @@ export function LyraProvider({
       setDb(db);
     }
 
-    void initLyra();
+    void initOrama();
   }, [schema, options]);
 
   useEffect(() => {
@@ -62,8 +62,8 @@ export function LyraProvider({
   }, [isInitialized, data]);
 
   return (
-    <lyraContext.Provider value={{db, isInitialized, isIndexed, setData}}>
+    <oramaContext.Provider value={{db, isInitialized, isIndexed, setData}}>
       {children}
-    </lyraContext.Provider>
+    </oramaContext.Provider>
   );
 }

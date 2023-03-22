@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import {LyraProvider} from 'use-lyra/lib/Provider';
 import {type PropertiesSchema} from '@lyrasearch/lyra';
+import {OramaProvider} from 'use-orama';
 import App from './App';
 import './index.css';
 
@@ -12,7 +12,7 @@ const schema: PropertiesSchema = {
 
 ReactDOM.createRoot(document.querySelector('#root')!).render(
   <React.StrictMode>
-    <LyraProvider
+    <OramaProvider
       schema={schema}
       options={{
         components: {
@@ -24,6 +24,6 @@ ReactDOM.createRoot(document.querySelector('#root')!).render(
       }}
     >
       <App />
-    </LyraProvider>
+    </OramaProvider>
   </React.StrictMode>,
 );

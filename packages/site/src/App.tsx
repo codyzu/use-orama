@@ -1,5 +1,5 @@
 import {useEffect, useState} from 'react';
-import {useSearch, useSearchableData} from 'use-lyra';
+import {useSearch, useSearchableData} from 'use-orama';
 import './App.css';
 
 type Product = {

@@ -1,7 +1,7 @@
 import {useContext} from 'react';
-import {lyraContext} from './context.js';
+import {oramaContext} from './context.js';
 
 export function useSetSearchableData() {
-  const {setData} = useContext(lyraContext);
+  const {setData} = useContext(oramaContext);
   return setData;
 }

@@ -5,10 +5,10 @@ import {
   type SearchParams,
 } from '@lyrasearch/lyra';
 import {useContext, useEffect, useState} from 'react';
-import {lyraContext} from './context.js';
+import {oramaContext} from './context.js';
 
 export function useSearch(parameters: SearchParams<PropertiesSchema>) {
-  const ctx = useContext(lyraContext);
+  const ctx = useContext(oramaContext);
   const {db, isIndexed} = ctx;
   const [done, setDone] = useState<boolean>(false);
   const [results, setResults] = useState<SearchResult<PropertiesSchema>>();
