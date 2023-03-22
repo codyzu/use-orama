@@ -1,3 +1,4 @@
+// eslint-disable-line unicorn/filename-case
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import {type PropertiesSchema} from '@lyrasearch/lyra';

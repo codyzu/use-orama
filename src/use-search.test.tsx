@@ -4,9 +4,7 @@ import {describe, it, expect, beforeEach} from 'vitest';
 import {useEffect} from 'react';
 import {type PropertiesSchema, type SearchResult} from '@lyrasearch/lyra';
 import {useSearch} from './use-search';
-import {OramaProvider} from './Provider';
-import useSetSearchableData from './use-set-searchable-data';
-import useSearchableData from './use-searchable-data';
+import {OramaProvider, useSetSearchableData, useSearchableData} from '.';
 
 let data: any[] | undefined;
 let propertiesSchema: PropertiesSchema | undefined;

@@ -1,4 +1,4 @@
-const path = require('node:path');
+// const path = require('node:path');
 
 module.exports = {
   prettier: true,
@@ -37,8 +37,8 @@ module.exports = {
       rules: {
         "n/file-extension-in-import": "off",
         // "import/extensions": "off",
-        "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx"],
-      packageDir: [path.join(__dirname, './packages/hooks')]}]
+      //   "import/no-extraneous-dependencies": ["error", {"devDependencies": ["**/*.test.ts", "**/*.test.tsx"],
+      // packageDir: [path.join(__dirname, './packages/hooks')]}]
       },
     },
   ],
