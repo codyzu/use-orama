@@ -13,7 +13,7 @@ type Response = {
 };
 
 function App() {
-  const [posts, setPosts] = useState<any[]>();
+  const [products, setProducts] = useState<any[]>([]);
 
   useEffect(() => {
     async function getData() {
@@ -26,7 +26,7 @@ function App() {
         id: doc.id.toString(),
       }));
 
-      setPosts(dataWithStringIds);
+      setProducts(dataWithStringIds);
     }
 
     void getData();
@@ -34,7 +34,7 @@ function App() {
 
   const [searchParameters, setSearchParameters] = useState<{term: string}>();
 
-  (useSearchableData as (data: any[]) => void)(posts!);
+  (useSearchableData as (data: any[]) => void)(products);
   const {done, results} = useSearch(searchParameters!);
 
   const [searchTerm, setSearchTerm] = useState('');
@@ -44,6 +44,7 @@ function App() {
   return (
     <>
       <h2>useOrama hooks exerciser</h2>
+      <div>Fetched {products.length} products to search</div>
       <form
         className="search-bar"
         onSubmit={(event) => {
