@@ -35,7 +35,7 @@ jobs:
       - name: Install
         run: pnpm install
 
-        # Examples will fail linting if the deps are not installed 😢
+      # Examples will fail linting if the deps are not installed 😢
       - name: Install examples
         run: cd examples/react-vite-use-orama && pnpm install
 
