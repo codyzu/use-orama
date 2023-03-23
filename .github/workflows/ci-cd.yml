@@ -39,6 +39,9 @@ jobs:
       - name: Install examples
         run: cd examples/react-vite-use-orama && pnpm install
 
+      - name: debug
+        run: ls examples/react-vite-use-orama && ls examples/react-vite-use-orama/node_modules
+
       - name: Lint
         run: pnpm run lint
 
