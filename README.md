@@ -69,13 +69,7 @@ function App() {
 It also integrates nicely with async fetching of the searchable data
 
 ```jsx
-import {useSearchableData, useSearch} from 'use-orama';
-
-const data = [
-  {title: 'Gostbusters', description: 'Best movie ever made'},
-  {title: 'Gooneys', description: 'Best movie of all time'},
-];
-
+import {useSetSearchableData, useSearch} from 'use-orama';
 const searchParameters = {term: 'ever'};
 
 function App() {
@@ -84,7 +78,7 @@ function App() {
   useEffect(() => {
     async function fetchData() {
       const result = await fetch('https://your.api/data');
-      setSearchableData(result);
+      setSearchableData(await result.json());
     }
     fetchData();
   }, [])
