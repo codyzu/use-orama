@@ -33,8 +33,11 @@ jobs:
         run: node -v && pnpm -v
 
       - name: Install
-        # set the base path to where this will be deployed
         run: pnpm install
+
+        # Examples will fail linting if the deps are not installed 😢
+      - name: Install examples
+        run: cd examples/react-vite-use-orama && pnpm install
 
       - name: Lint
         run: pnpm run lint
