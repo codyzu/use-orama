@@ -18,9 +18,8 @@ importers:
       typescript: ^4.9.3
       vitest: ^0.29.2
       xo: ^0.53.1
-    dependencies:
-      '@orama/orama': 1.0.0-beta.4
     devDependencies:
+      '@orama/orama': 1.0.0-beta.4
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@types/react': 18.0.28
@@ -703,7 +702,7 @@ packages:
   /@orama/orama/1.0.0-beta.4:
     resolution: {integrity: sha512-CSLngIstH6RzMy0pLkLhQngs1rS5Gt6g2fYORehqL3uccB99W8svoc5wut5ARN+5LcIeVgX9ruzTCsiBXM2skw==}
     engines: {node: '>= 16.0.0'}
-    dev: false
+    dev: true
 
   /@sinclair/typebox/0.25.24:
     resolution: {integrity: sha512-XJfwUVUKDHF5ugKwIcxEgc9k8b7HbznCp6eUfWgu710hMPNIO4aw4/zB5RogDQz8nd6gyCDpU9O/m6qYEWY6yQ==}
