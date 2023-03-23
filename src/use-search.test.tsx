@@ -1,10 +1,15 @@
 // eslint-disable-line unicorn/filename-case
+/* eslint-disable @typescript-eslint/no-unsafe-call,@typescript-eslint/no-unsafe-return */
 import {renderHook, waitFor} from '@testing-library/react';
 import {describe, it, expect, beforeEach} from 'vitest';
 import {useEffect} from 'react';
 import {type PropertiesSchema, type SearchResult} from '@lyrasearch/lyra';
 import {useSearch} from './use-search';
-import {OramaProvider, useSetSearchableData, useSearchableData} from '.';
+import {
+  OramaProvider,
+  useSetSearchableData,
+  useSearchableData,
+} from './index.js';
 
 let data: any[] | undefined;
 let propertiesSchema: PropertiesSchema | undefined;
@@ -22,6 +27,7 @@ function customRender(
 ) {
   return renderHook(hook, {
     wrapper: (props: any) => (
+      // @ts-expect-error this is gives a strange error about react needing to be a module in vscode
       <OramaProvider schema={propertiesSchema} {...props} />
     ),
   });

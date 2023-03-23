@@ -1,5 +1,6 @@
 import {expect, afterEach} from 'vitest';
 import {cleanup} from '@testing-library/react';
+// @ts-expect-error this works, even if it gives an error in vscode
 import matchers from '@testing-library/jest-dom/matchers';
 
 // Extends Vitest's expect method with methods from react-testing-library
