@@ -3,7 +3,7 @@
 import {renderHook, waitFor} from '@testing-library/react';
 import {describe, it, expect, beforeEach} from 'vitest';
 import {useEffect} from 'react';
-import {type PropertiesSchema, type SearchResult} from '@lyrasearch/lyra';
+import {type Schema, type Results} from '@orama/orama';
 import {useSearch} from './use-search';
 import {
   OramaProvider,
@@ -12,7 +12,7 @@ import {
 } from './index.js';
 
 let data: any[] | undefined;
-let propertiesSchema: PropertiesSchema | undefined;
+let propertiesSchema: Schema | undefined;
 
 beforeEach(() => {
   data = undefined;
@@ -22,7 +22,7 @@ beforeEach(() => {
 function customRender(
   hook: (initialProps: unknown) => {
     done: boolean;
-    results: SearchResult<PropertiesSchema> | undefined;
+    results: Results | undefined;
   },
 ) {
   return renderHook(hook, {

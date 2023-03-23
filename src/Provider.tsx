@@ -1,9 +1,4 @@
-import {
-  type Lyra,
-  type PropertiesSchema,
-  create,
-  insertBatch,
-} from '@lyrasearch/lyra';
+import {type Orama, type Schema, create, insertMultiple} from '@orama/orama';
 import {type ReactNode, useState, useEffect} from 'react';
 import {oramaContext} from './context.js';
 
@@ -13,10 +8,10 @@ export function OramaProvider({
   options,
 }: {
   children: ReactNode;
-  schema: PropertiesSchema;
+  schema: Schema;
   options?: any;
 }) {
-  const [db, setDb] = useState<Lyra<PropertiesSchema>>();
+  const [db, setDb] = useState<Orama>();
   const [isIndexed, setIsIndexed] = useState<boolean>(false);
   const [isInitialized, setIsInitialized] = useState<boolean>(false);
   const [data, setData] = useState<any[]>();
@@ -54,7 +49,7 @@ export function OramaProvider({
         return;
       }
 
-      await insertBatch(db!, data);
+      await insertMultiple(db!, data);
       setIsIndexed(true);
     }
 

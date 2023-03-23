@@ -1,10 +1,10 @@
 import {createContext} from 'react';
-import {type Lyra, type PropertiesSchema} from '@lyrasearch/lyra';
+import {type Orama, type Schema} from '@orama/orama';
 
 export type OramaContext = {
   isInitialized: boolean;
   isIndexed: boolean;
-  db?: Lyra<PropertiesSchema>;
+  db?: Orama;
   setData: (data: any[]) => void;
 };
 
