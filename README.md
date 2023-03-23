@@ -2,6 +2,8 @@
 
 ## React hooks for using Orama search
 
+## 🚧 TODO: publish to npm, then update examples deps so they can used in codesandbox
+
 ### Quickstart
 
 ⏬ Install with your favorite package manager
