@@ -13,17 +13,7 @@ const schema: Schema = {
 
 ReactDOM.createRoot(document.querySelector('#root')!).render(
   <React.StrictMode>
-    <OramaProvider
-      schema={schema}
-      options={{
-        components: {
-          elapsed: {
-            // Make the elapsed time human readable
-            format: 'human',
-          },
-        },
-      }}
-    >
+    <OramaProvider schema={schema}>
       <App />
     </OramaProvider>
   </React.StrictMode>,

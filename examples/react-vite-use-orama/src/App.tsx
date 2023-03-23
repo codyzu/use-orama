@@ -63,7 +63,9 @@ function App() {
         <button type="submit">Search</button>
       </form>
       <h3>
-        {`${results?.count ?? '0'} results in ${results?.elapsed ?? '0 μs'}`}
+        {`${results?.count ?? '0'} results in ${
+          results?.elapsed?.formatted ?? '0 μs'
+        }`}
       </h3>
       <table>
         <thead>
