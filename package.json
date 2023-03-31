@@ -12,6 +12,7 @@
   ],
   "scripts": {
     "build": "rimraf lib && tsc --outDir lib",
+    "dev": "rimraf lib && tsc --outDir lib --watch",
     "test": "vitest",
     "lint": "xo"
   },
@@ -19,7 +20,7 @@
   "author": "",
   "license": "ISC",
   "devDependencies": {
-    "@orama/orama": "1.0.0-beta.4",
+    "@orama/orama": "1.0.0-beta.6",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^14.0.0",
     "@types/react": "^18.0.27",
@@ -35,8 +36,8 @@
     "xo": "^0.53.1"
   },
   "peerDependencies": {
-    "react": ">=18.2.0",
-    "@orama/orama": ">=1.0.0-beta.4"
+    "@orama/orama": ">=1.0.0-beta.6",
+    "react": ">=18.2.0"
   },
   "type": "module"
 }

@@ -20,12 +20,24 @@ export function useSearch(parameters: SearchParams) {
       return;
     }
 
+    let isCanceled = false;
     async function doSearch() {
-      setResults(await search(db!, parameters));
+      const results = await search(db!, parameters);
+
+      // Don't update state of the component has been unmounted
+      if (isCanceled) {
+        return;
+      }
+
+      setResults(results);
       setDone(true);
     }
 
     void doSearch();
+
+    return () => {
+      isCanceled = true;
+    };
   }, [isIndexed, parameters]);
 
   return {done, results};

@@ -20,13 +20,7 @@ function App() {
       const result = await fetch('https://dummyjson.com/products?limit=100');
       const data = (await result.json()) as Response;
 
-      // Orama will explode if ids are not strings
-      const dataWithStringIds = data.products.map((doc) => ({
-        ...doc,
-        id: doc.id.toString(),
-      }));
-
-      setProducts(dataWithStringIds);
+      setProducts(data.products);
     }
 
     void getData();

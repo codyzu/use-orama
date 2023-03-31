@@ -9,10 +9,10 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@orama/orama": "^1.0.0-beta.4",
+    "@orama/orama": "^1.0.0-beta.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "use-orama": "file:../.."
+    "use-orama": "link:../.."
   },
   "devDependencies": {
     "@types/react": "^18.0.27",

@@ -4,7 +4,7 @@ importers:
 
   .:
     specifiers:
-      '@orama/orama': 1.0.0-beta.4
+      '@orama/orama': 1.0.0-beta.6
       '@testing-library/jest-dom': ^5.16.5
       '@testing-library/react': ^14.0.0
       '@types/react': ^18.0.27
@@ -19,7 +19,7 @@ importers:
       vitest: ^0.29.2
       xo: ^0.53.1
     devDependencies:
-      '@orama/orama': 1.0.0-beta.4
+      '@orama/orama': 1.0.0-beta.6
       '@testing-library/jest-dom': 5.16.5
       '@testing-library/react': 14.0.0_biqbaboplfbrettd7655fr4n2y
       '@types/react': 18.0.28
@@ -699,8 +699,8 @@ packages:
       fastq: 1.15.0
     dev: true
 
-  /@orama/orama/1.0.0-beta.4:
-    resolution: {integrity: sha512-CSLngIstH6RzMy0pLkLhQngs1rS5Gt6g2fYORehqL3uccB99W8svoc5wut5ARN+5LcIeVgX9ruzTCsiBXM2skw==}
+  /@orama/orama/1.0.0-beta.6:
+    resolution: {integrity: sha512-yZ53buw7UAd7AAS+Ye9eaaXz/mhr/AFGdIr2XYmHWXQGm05/pJQlq1+6A2YTX/y6O3nPX94+n5/hEQuUQlsjOA==}
     engines: {node: '>= 16.0.0'}
     dev: true
 
