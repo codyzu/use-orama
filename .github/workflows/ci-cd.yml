@@ -35,15 +35,9 @@ jobs:
       - name: Install
         run: pnpm install
 
-      # Examples will fail linting if the deps are not installed 😢
-      - name: Install examples
-        run: cd examples/react-vite-use-orama && pnpm install
-
-      - name: debug
-        run: ls examples/react-vite-use-orama && ls examples/react-vite-use-orama/node_modules
-
+      # Lint but skip examples because they will be broken until the package is built with tsc (nothing in lib yet)
       - name: Lint
-        run: pnpm run lint
+        run: pnpm run lint . '!examples'
 
       # Build now to reveal any TS errors that weren't caught by the linter
       - name: Build
@@ -51,5 +45,11 @@ jobs:
 
       - name: Test
         run: pnpm run test
+
+      - name: Install examples
+        run: pnpm --dir examples/react-vite-use-orama install
+
+      - name: Lint examples
+        run: pnpm run lint examples
 
       # TODO: deploy to npm
