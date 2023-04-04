@@ -45,25 +45,19 @@ export function OramaProvider({
     let isInitCanceled = false;
 
     async function initOrama() {
-      console.log('creating');
       const db = await create({schema, language, components});
 
       // Stop indexing if the component has been unmounted
       if (isInitCanceled) {
-        console.log('create canceled');
         return;
       }
 
-      console.log('inserting');
       await insertMultiple(db, data!);
 
-      // Don't update state of the component has been unmounted
+      // Don't update state if the component has been unmounted
       if (isInitCanceled) {
-        console.log('insert canceled');
         return;
       }
-
-      console.log('inserted');
 
       setIsIndexed(true);
       setDb(db);
@@ -72,7 +66,6 @@ export function OramaProvider({
     void initOrama();
 
     return () => {
-      console.log('canceling');
       isInitCanceled = true;
     };
   }, [schema, language, components, data]);
