@@ -112,8 +112,9 @@ By making an `<OramaProvider>` a common ancestor, components that set the search
 
 | Property | Description | Default |
 |-|-|-|
-| `schema` | Orama schema | _no default, this must be defined_ |
-| `options` | Orama instance options | `{}` (empty object) |
+| `schema` | Orama schema | _No default, this must be defined._ Refer to [Orama `create`](https://docs.oramasearch.com/usage/create). |
+| `language` | optional parameter passed to [Orama `create`](https://docs.oramasearch.com/usage/create) | `undefined`, lets Orama set the default. Refer to [Orama stemming](https://docs.oramasearch.com/text-analysis/stemming) |
+| `components` | optional parameter passed to [Orama `create`](https://docs.oramasearch.com/usage/create) | `undefined`, lets Orama set the default. Refer to [Orama components](https://docs.oramasearch.com/internals/components) |
 
 #### `useSearchableData(data: any[]): void`
 
@@ -140,7 +141,7 @@ Useful in cases when the data is retrieved asynchronously via an API or database
 | return | setter callback that can be called with the data to be indexed with orama |
 
 
-#### `useSearch(parameters: SearchParams<PropertiesSchema>): {done: boolean; results: SearchResult<PropertiesSchema> | undefined; }`
+#### `useSearch(parameters: SearchParams): {done: boolean; results: SearchResult | undefined; }`
 
 Sets the search parameters for Orama and returns the search results.
 A convenience boolean, `done` is also returned to easily determine when searching is done.
@@ -149,4 +150,5 @@ A convenience boolean, `done` is also returned to easily determine when searchin
 
 | Parameter | Description | Default |
 |-|-|-|
+| `parameters` | search parameters passed to [Orama `search`](https://docs.oramasearch.com/usage/search/introduction) | _No default, this must be defined._ Refer to [Orama `search`](https://docs.oramasearch.com/usage/search/introduction). |
 | return | `{done, results}` An object with a boolean `done` that will be true when indexing and searching is done and `results` that contains the Orama search results (will be `undefined` when `done` is false) | |
