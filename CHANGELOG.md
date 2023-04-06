@@ -1,5 +1,11 @@
 # use-orama
 
+## 0.1.6
+
+### Patch Changes
+
+- 2f7cc68: Automate publishing
+
 ## 0.1.5
 
 ### Patch Changes
