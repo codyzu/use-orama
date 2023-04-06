@@ -1,5 +1,11 @@
 # use-orama
 
+## 0.1.4
+
+### Patch Changes
+
+- ff215d3: Debugging CI
+
 ## 0.1.3
 
 ### Patch Changes
