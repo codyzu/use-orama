@@ -57,8 +57,8 @@ jobs:
       #   run: echo "NPM_OTP=$(curl -s https://optic-zf3votdk5a-ew.a.run.app/api/generate/${{ secrets.OPTIC_TOKEN }})" >> $GITHUB_OUTPUT
 
       - name: Create Release Pull Request or Publish to npm
-        # Only deploy on master
-        if: github.ref == 'refs/heads/master'
+        # Only deploy from main
+        if: github.ref == 'refs/heads/main'
         id: changesets
         uses: changesets/action@v1
         with:
