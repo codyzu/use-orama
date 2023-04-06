@@ -1,5 +1,11 @@
 # use-orama
 
+## 0.1.7
+
+### Patch Changes
+
+- 3d2364b: Automate releases
+
 ## 0.1.6
 
 ### Patch Changes
