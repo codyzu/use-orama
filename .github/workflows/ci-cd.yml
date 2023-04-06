@@ -27,7 +27,7 @@ jobs:
           cache: "pnpm"
 
       - name: Output debugging info
-        run: node -v && pnpm -v
+        run: node -v && npm -v && pnpm -v
 
       - name: Install
         run: pnpm install
