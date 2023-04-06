@@ -15,7 +15,7 @@
     "dev": "rimraf lib && tsc --outDir lib --watch",
     "test": "vitest",
     "lint": "xo",
-    "publish": "OTP=$(curl -s https://optic-zf3votdk5a-ew.a.run.app/api/generate/${OPTIC_TOKEN}) && echo ${OTP} && echo \"start\" && npm_config_otp=${OTP} changeset publish",
+    "release": "npm_config_otp=$(curl -s https://optic-zf3votdk5a-ew.a.run.app/api/generate/${OPTIC_TOKEN}) changeset publish",
     "change": "changeset"
   },
   "keywords": [],
