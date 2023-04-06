@@ -1,5 +1,11 @@
 # use-orama
 
+## 0.1.3
+
+### Patch Changes
+
+- 3c65dd1: publish with github action CI/CD
+
 ## 0.1.2
 
 ### Patch Changes
