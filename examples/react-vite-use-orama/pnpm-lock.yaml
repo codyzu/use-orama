@@ -8,14 +8,14 @@ specifiers:
   react: ^18.2.0
   react-dom: ^18.2.0
   typescript: ^4.9.3
-  use-orama: link:../..
+  use-orama: ^0.1.7
   vite: ^4.1.0
 
 dependencies:
   '@orama/orama': 1.0.0-beta.6
   react: 18.2.0
   react-dom: 18.2.0_react@18.2.0
-  use-orama: link:../..
+  use-orama: 0.1.7_n3bw2mvofy4fjhefck33jklsm4
 
 devDependencies:
   '@types/react': 18.0.28
@@ -832,6 +832,16 @@ packages:
       escalade: 3.1.1
       picocolors: 1.0.0
     dev: true
+
+  /use-orama/0.1.7_n3bw2mvofy4fjhefck33jklsm4:
+    resolution: {integrity: sha512-9Y8oocnSp0OBrm81ZNCPzD2AdegsBZYDOLaekovICo98N20xYF55aJMsYhOqvc3dVo65S8gSr85vEE8ED47hIQ==}
+    peerDependencies:
+      '@orama/orama': '>=1.0.0-beta.6'
+      react: '>=18.2.0'
+    dependencies:
+      '@orama/orama': 1.0.0-beta.6
+      react: 18.2.0
+    dev: false
 
   /vite/4.2.1:
     resolution: {integrity: sha512-7MKhqdy0ISo4wnvwtqZkjke6XN4taqQ2TBaTccLIpOKv7Vp2h4Y+NpmWCnGDeSvvn45KxvWgGyb0MkHvY1vgbg==}

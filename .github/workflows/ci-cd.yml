@@ -49,13 +49,6 @@ jobs:
       - name: Lint examples
         run: pnpm run lint examples
 
-      # TODO: deploy to npm
-      # - name: Get NPM OTP
-      #   # Only deploy on master
-      #   if: github.ref == 'refs/heads/master'
-      #   id: get_npm_top
-      #   run: echo "NPM_OTP=$(curl -s https://optic-zf3votdk5a-ew.a.run.app/api/generate/${{ secrets.OPTIC_TOKEN }})" >> $GITHUB_OUTPUT
-
       - name: Create Release Pull Request or Publish to npm
         # Only deploy from main
         if: github.ref == 'refs/heads/main'

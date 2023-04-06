@@ -12,7 +12,7 @@
     "@orama/orama": "^1.0.0-beta.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
-    "use-orama": "link:../.."
+    "use-orama": "^0.1.7"
   },
   "devDependencies": {
     "@types/react": "^18.0.27",
