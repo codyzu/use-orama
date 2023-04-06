@@ -1,8 +1,5 @@
 name: "CI/CD"
-on:
-  push:
-    branches:
-      - main
+on: [push]
 
 # Cancel any previous CI runs for this branch or PR
 concurrency:
@@ -53,3 +50,22 @@ jobs:
         run: pnpm run lint examples
 
       # TODO: deploy to npm
+      # - name: Get NPM OTP
+      #   # Only deploy on master
+      #   if: github.ref == 'refs/heads/master'
+      #   id: get_npm_top
+      #   run: echo "NPM_OTP=$(curl -s https://optic-zf3votdk5a-ew.a.run.app/api/generate/${{ secrets.OPTIC_TOKEN }})" >> $GITHUB_OUTPUT
+
+      - name: Create Release Pull Request or Publish to npm
+        # Only deploy on master
+        if: github.ref == 'refs/heads/master'
+        id: changesets
+        uses: changesets/action@v1
+        with:
+          # This expects you to have a script called release which does a build for your packages and calls changeset publish
+          publish: pnpm run publish
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+          OPTIC_TOKEN: ${{ secrets.OPTIC_TOKEN }}
+    
