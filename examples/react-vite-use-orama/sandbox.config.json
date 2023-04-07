@@ -3,6 +3,7 @@
   "hardReloadOnChange": false,
   "view": "browser",
   "container": {
-    "node": "16"
+    "node": "16",
+    "port": "5173"
   }
 }
